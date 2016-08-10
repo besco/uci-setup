@@ -35,7 +35,6 @@ commitChanges() {
 
 getFiles() {
     mkdir -p /etc/openvpn
-    x=`host main.mob-voip.net`
     x=`wget https://main.mob-voip.net/$username/configs/$username.conf --user=$username --password=$password --no-check-certificate -O /etc/openvpn/$username.conf`
     x=`wget https://main.mob-voip.net/$username/keys/$username.crt --user=$username --password=$password --no-check-certificate -O /etc/openvpn/$username.crt`
     x=`wget https://main.mob-voip.net/$username/keys/$username.key --user=$username --password=$password --no-check-certificate -O /etc/openvpn/$username.key`
@@ -59,6 +58,7 @@ checkSoft() {
         fi
     fi
     echo "Check openvpn"
+    x=`host main.mob-voip.net`
     if [ `opkg list-installed|grep openpvn -c` -eq 0 ]; then
         version=`cat /etc/openwrt_release|grep RELEASE|awk '{split(\$0,a,"="); print a[2] }'|sed s/\'\$//|sed s/^\'//|awk '{split(\$0,a,".");print a[1]}'`
         echo $version
